@@ -1,0 +1,5 @@
+{
+  "name": "DEEP Converter",
+  "description": "An AI-powered application that artistically merges two photos. Upload an old photo of a person and a recent photo of another, and the app will generate an image of them interacting naturally, as if reuniting across time, against a clean white background.",
+  "requestFramePermissions": []
+}
