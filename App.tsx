@@ -93,7 +93,11 @@ const App: React.FC = () => {
       setGeneratedImage(resultBase64);
     } catch (err) {
       console.error("Error generating image:", err);
-      setError("Sorry, something went wrong while creating your image. Please try again.");
+      if (err instanceof Error) {
+        setError(err.message);
+      } else {
+        setError("An unknown error occurred while creating your image. Please try again.");
+      }
     } finally {
       setIsLoading(false);
     }

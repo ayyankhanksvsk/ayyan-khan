@@ -1,13 +1,5 @@
 import { GoogleGenAI, Modality } from "@google/genai";
 
-const API_KEY = process.env.API_KEY;
-
-if (!API_KEY) {
-  throw new Error("API_KEY environment variable not set");
-}
-
-const ai = new GoogleGenAI({ apiKey: API_KEY });
-
 const poseDescriptions: { [key: string]: string } = {
   hug: 'is hugging the person from the old photo.',
   handshake: 'is shaking hands with the person from the old photo.',
@@ -71,6 +63,13 @@ export async function generateReunifyImage(
   pose: string,
   background: string
 ): Promise<string> {
+  const API_KEY = process.env.API_KEY;
+
+  if (!API_KEY) {
+    throw new Error("API Key is not configured. Please ensure your environment is set up correctly.");
+  }
+
+  const ai = new GoogleGenAI({ apiKey: API_KEY });
 
   const interactionDescription = poseDescriptions[pose] || poseDescriptions['hug'];
   const backgroundDescription = backgroundDescriptions[background] || backgroundDescriptions['white'];
@@ -112,6 +111,6 @@ export async function generateReunifyImage(
     throw new Error("No image data found in the API response.");
   } catch (error) {
     console.error("Gemini API call failed:", error);
-    throw new Error("Failed to generate image with Gemini API.");
+    throw error;
   }
 }
